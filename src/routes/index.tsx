@@ -2,8 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 import bottle from "@/assets/bottle.png";
+import { CartDrawer } from "@/components/CartDrawer";
 import { ScentSection } from "@/components/ScentSection";
 import { SiteHeader } from "@/components/SiteHeader";
+import { CartProvider, formatINR, useCart } from "@/lib/cart";
 
 const TITLE = "SARKAR Le Male Elixir — Limited Edition Woody Oriental Parfum";
 const DESCRIPTION =
