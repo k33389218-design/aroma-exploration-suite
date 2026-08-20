@@ -160,10 +160,20 @@ function PageContent() {
                 <p className="mt-3 text-[10px] tracking-wide-label text-muted-foreground">
                   REGULAR PRICE
                 </p>
-                <p className="mt-1 text-lg font-semibold text-foreground">₹ {variant.price}</p>
+                <p className="mt-1 text-lg font-semibold text-foreground">
+                  {formatINR(variant.price)}
+                </p>
                 <button
                   type="button"
-                  onClick={() => setSelected(variant)}
+                  onClick={() =>
+                    add({
+                      id: `elixir-${variant.size}`,
+                      name: "LE MALE ELIXIR",
+                      size: variant.size,
+                      price: variant.price,
+                      image: bottle,
+                    })
+                  }
                   className="mt-6 w-full border border-foreground py-3 text-[11px] font-semibold tracking-wide-label text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
                 >
                   ADD TO CART
@@ -172,10 +182,15 @@ function PageContent() {
             </article>
           ))}
         </div>
-        <p className="mt-10 text-center text-[10px] tracking-wide-label text-muted-foreground">
-          SELECTED · {selected.size}ML — ₹ {selected.price}
-        </p>
+        <button
+          type="button"
+          onClick={openCart}
+          className="mx-auto mt-10 block text-[10px] tracking-wide-label text-muted-foreground underline transition-opacity hover:opacity-70"
+        >
+          {count > 0 ? `VIEW BAG · ${count} ITEM${count === 1 ? "" : "S"}` : "FREE SHIPPING OVER ₹ 999 · CASH ON DELIVERY AVAILABLE"}
+        </button>
       </section>
+
 
       {/* Notes */}
       <section id="notes" className="border-t border-border bg-background px-6 py-24">
