@@ -40,11 +40,12 @@ export function CartDrawer() {
 
   const validate = () => {
     const next: Record<string, string> = {};
-    if (form.name.trim().length < 2) next.name = "Enter your full name";
-    if (!/^[6-9]\d{9}$/.test(form.phone.trim())) next.phone = "Enter a valid 10-digit mobile number";
-    if (form.address.trim().length < 8) next.address = "Enter your full address";
-    if (form.city.trim().length < 2) next.city = "Enter your city";
-    if (!/^\d{6}$/.test(form.pincode.trim())) next.pincode = "Enter a valid 6-digit PIN code";
+    if (form.name.trim().length < 2) next["name"] = "Enter your full name";
+    if (!/^[6-9]\d{9}$/.test(form.phone.trim()))
+      next["phone"] = "Enter a valid 10-digit mobile number";
+    if (form.address.trim().length < 8) next["address"] = "Enter your full address";
+    if (form.city.trim().length < 2) next["city"] = "Enter your city";
+    if (!/^\d{6}$/.test(form.pincode.trim())) next["pincode"] = "Enter a valid 6-digit PIN code";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
