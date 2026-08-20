@@ -32,12 +32,12 @@ const SCENTS = [
   { title: "VANILLA", tagline: "DEEP. ADDICTIVE. ETERNAL." },
 ];
 
-type Variant = { size: number; price: string };
+type Variant = { size: number; price: number };
 
 const VARIANTS: Variant[] = [
-  { size: 25, price: "499" },
-  { size: 50, price: "999" },
-  { size: 100, price: "1,499" },
+  { size: 25, price: 499 },
+  { size: 50, price: 999 },
+  { size: 100, price: 1499 },
 ];
 
 const NOTES = [
@@ -47,11 +47,22 @@ const NOTES = [
 ];
 
 function HomePage() {
-  const [selected, setSelected] = useState<Variant>(VARIANTS[2]!);
+  return (
+    <CartProvider>
+      <PageContent />
+      <CartDrawer />
+    </CartProvider>
+  );
+}
+
+function PageContent() {
+  const { add, count, openCart } = useCart();
+  const [subscribed, setSubscribed] = useState(false);
 
   return (
     <main className="min-h-screen bg-background">
       <SiteHeader />
+
 
       {/* Hero */}
       <section
