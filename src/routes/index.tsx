@@ -30,7 +30,9 @@ const SCENTS = [
   { title: "VANILLA", tagline: "DEEP. ADDICTIVE. ETERNAL." },
 ];
 
-const VARIANTS = [
+type Variant = { size: number; price: string };
+
+const VARIANTS: Variant[] = [
   { size: 25, price: "499" },
   { size: 50, price: "999" },
   { size: 100, price: "1,499" },
@@ -43,7 +45,7 @@ const NOTES = [
 ];
 
 function HomePage() {
-  const [selected, setSelected] = useState(VARIANTS[2]);
+  const [selected, setSelected] = useState<Variant>(VARIANTS[2]!);
 
   return (
     <main className="min-h-screen bg-background">
