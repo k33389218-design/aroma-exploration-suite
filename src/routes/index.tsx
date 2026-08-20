@@ -2,8 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 import bottle from "@/assets/bottle.png";
+import { CartDrawer } from "@/components/CartDrawer";
 import { ScentSection } from "@/components/ScentSection";
 import { SiteHeader } from "@/components/SiteHeader";
+import { CartProvider, formatINR, useCart } from "@/lib/cart";
 
 const TITLE = "SARKAR Le Male Elixir — Limited Edition Woody Oriental Parfum";
 const DESCRIPTION =
@@ -30,12 +32,12 @@ const SCENTS = [
   { title: "VANILLA", tagline: "DEEP. ADDICTIVE. ETERNAL." },
 ];
 
-type Variant = { size: number; price: string };
+type Variant = { size: number; price: number };
 
 const VARIANTS: Variant[] = [
-  { size: 25, price: "499" },
-  { size: 50, price: "999" },
-  { size: 100, price: "1,499" },
+  { size: 25, price: 499 },
+  { size: 50, price: 999 },
+  { size: 100, price: 1499 },
 ];
 
 const NOTES = [
@@ -45,11 +47,22 @@ const NOTES = [
 ];
 
 function HomePage() {
-  const [selected, setSelected] = useState<Variant>(VARIANTS[2]!);
+  return (
+    <CartProvider>
+      <PageContent />
+      <CartDrawer />
+    </CartProvider>
+  );
+}
+
+function PageContent() {
+  const { add, count, openCart } = useCart();
+  const [subscribed, setSubscribed] = useState(false);
 
   return (
     <main className="min-h-screen bg-background">
       <SiteHeader />
+
 
       {/* Hero */}
       <section
@@ -147,10 +160,20 @@ function HomePage() {
                 <p className="mt-3 text-[10px] tracking-wide-label text-muted-foreground">
                   REGULAR PRICE
                 </p>
-                <p className="mt-1 text-lg font-semibold text-foreground">₹ {variant.price}</p>
+                <p className="mt-1 text-lg font-semibold text-foreground">
+                  {formatINR(variant.price)}
+                </p>
                 <button
                   type="button"
-                  onClick={() => setSelected(variant)}
+                  onClick={() =>
+                    add({
+                      id: `elixir-${variant.size}`,
+                      name: "LE MALE ELIXIR",
+                      size: variant.size,
+                      price: variant.price,
+                      image: bottle,
+                    })
+                  }
                   className="mt-6 w-full border border-foreground py-3 text-[11px] font-semibold tracking-wide-label text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
                 >
                   ADD TO CART
@@ -159,10 +182,15 @@ function HomePage() {
             </article>
           ))}
         </div>
-        <p className="mt-10 text-center text-[10px] tracking-wide-label text-muted-foreground">
-          SELECTED · {selected.size}ML — ₹ {selected.price}
-        </p>
+        <button
+          type="button"
+          onClick={openCart}
+          className="mx-auto mt-10 block text-[10px] tracking-wide-label text-muted-foreground underline transition-opacity hover:opacity-70"
+        >
+          {count > 0 ? `VIEW BAG · ${count} ITEM${count === 1 ? "" : "S"}` : "FREE SHIPPING OVER ₹ 999 · CASH ON DELIVERY AVAILABLE"}
+        </button>
       </section>
+
 
       {/* Notes */}
       <section id="notes" className="border-t border-border bg-background px-6 py-24">
@@ -196,28 +224,39 @@ function HomePage() {
         <h2 className="text-2xl font-bold tracking-brand text-foreground sm:text-4xl">
           THE ONE &amp; ONLY
         </h2>
-        <form
-          onSubmit={(event) => event.preventDefault()}
-          className="mx-auto mt-10 flex max-w-md items-center border border-border"
-        >
-          <label className="sr-only" htmlFor="email">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="ENTER EMAIL"
-            className="w-full bg-transparent px-5 py-4 text-[11px] tracking-wide-label text-foreground outline-none placeholder:text-muted-foreground"
-          />
-          <button
-            type="submit"
-            aria-label="Subscribe"
-            className="px-5 py-4 text-foreground transition-opacity hover:opacity-70"
+        {subscribed ? (
+          <p className="mt-10 text-[11px] tracking-wide-label text-foreground">
+            YOU&apos;RE ON THE LIST.
+          </p>
+        ) : (
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setSubscribed(true);
+            }}
+            className="mx-auto mt-10 flex max-w-md items-center border border-border"
           >
-            →
-          </button>
-        </form>
+            <label className="sr-only" htmlFor="email">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              required
+              placeholder="ENTER EMAIL"
+              className="w-full bg-transparent px-5 py-4 text-[11px] tracking-wide-label text-foreground outline-none placeholder:text-muted-foreground"
+            />
+            <button
+              type="submit"
+              aria-label="Subscribe"
+              className="px-5 py-4 text-foreground transition-opacity hover:opacity-70"
+            >
+              →
+            </button>
+          </form>
+        )}
       </section>
+
     </main>
   );
 }
