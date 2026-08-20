@@ -9,7 +9,7 @@ import { CartProvider, formatINR, useCart } from "@/lib/cart";
 
 const TITLE = "SARKAR Le Male Elixir — Limited Edition Woody Oriental Parfum";
 const DESCRIPTION =
-  "LE MALE ELIXIR by SARKAR. A limited edition woody oriental parfum in a leather-wrapped chess king bottle. 25ml Rs 499, 50ml Rs 999, 100ml Rs 2499.";
+  "LE MALE ELIXIR by SARKAR. A limited edition woody oriental parfum in a leather-wrapped chess king bottle. 25ml Rs 999, 50ml Rs 1499, 100ml Rs 1999.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,9 +35,9 @@ const SCENTS = [
 type Variant = { size: number; price: number };
 
 const VARIANTS: Variant[] = [
-  { size: 25, price: 499 },
-  { size: 50, price: 999 },
-  { size: 100, price: 2499 },
+  { size: 25, price: 999 },
+  { size: 50, price: 1499 },
+  { size: 100, price: 1999 },
 ];
 
 const NOTES = [
@@ -62,7 +62,6 @@ function PageContent() {
   return (
     <main className="min-h-screen bg-background">
       <SiteHeader />
-
 
       {/* Hero */}
       <section
@@ -191,7 +190,6 @@ function PageContent() {
         </button>
       </section>
 
-
       {/* Notes */}
       <section id="notes" className="border-t border-border bg-background px-6 py-24">
         <div className="mx-auto grid max-w-5xl gap-10 text-center sm:grid-cols-3">
@@ -256,7 +254,6 @@ function PageContent() {
           </form>
         )}
       </section>
-
     </main>
   );
 }
