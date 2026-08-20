@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Menu, ShoppingBag, X } from "lucide-react";
 
+import { useCart } from "@/lib/cart";
+
 const NAV_LINKS = [
   { label: "SHOP", href: "#shop" },
   { label: "THE OBJECT", href: "#object" },
@@ -10,6 +12,7 @@ const NAV_LINKS = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { count, openCart } = useCart();
 
   return (
     <>
