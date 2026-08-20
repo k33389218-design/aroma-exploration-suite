@@ -224,28 +224,39 @@ function PageContent() {
         <h2 className="text-2xl font-bold tracking-brand text-foreground sm:text-4xl">
           THE ONE &amp; ONLY
         </h2>
-        <form
-          onSubmit={(event) => event.preventDefault()}
-          className="mx-auto mt-10 flex max-w-md items-center border border-border"
-        >
-          <label className="sr-only" htmlFor="email">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="ENTER EMAIL"
-            className="w-full bg-transparent px-5 py-4 text-[11px] tracking-wide-label text-foreground outline-none placeholder:text-muted-foreground"
-          />
-          <button
-            type="submit"
-            aria-label="Subscribe"
-            className="px-5 py-4 text-foreground transition-opacity hover:opacity-70"
+        {subscribed ? (
+          <p className="mt-10 text-[11px] tracking-wide-label text-foreground">
+            YOU&apos;RE ON THE LIST.
+          </p>
+        ) : (
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setSubscribed(true);
+            }}
+            className="mx-auto mt-10 flex max-w-md items-center border border-border"
           >
-            →
-          </button>
-        </form>
+            <label className="sr-only" htmlFor="email">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              required
+              placeholder="ENTER EMAIL"
+              className="w-full bg-transparent px-5 py-4 text-[11px] tracking-wide-label text-foreground outline-none placeholder:text-muted-foreground"
+            />
+            <button
+              type="submit"
+              aria-label="Subscribe"
+              className="px-5 py-4 text-foreground transition-opacity hover:opacity-70"
+            >
+              →
+            </button>
+          </form>
+        )}
       </section>
+
     </main>
   );
 }
