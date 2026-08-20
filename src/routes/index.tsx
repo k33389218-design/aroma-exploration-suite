@@ -9,7 +9,7 @@ import { CartProvider, formatINR, useCart } from "@/lib/cart";
 
 const TITLE = "SARKAR Le Male Elixir — Limited Edition Woody Oriental Parfum";
 const DESCRIPTION =
-  "LE MALE ELIXIR by SARKAR. A limited edition woody oriental parfum in a leather-wrapped chess king bottle. 25ml Rs 499, 50ml Rs 999, 100ml Rs 1499.";
+  "LE MALE ELIXIR by SARKAR. A limited edition woody oriental parfum in a leather-wrapped chess king bottle. 25ml Rs 499, 50ml Rs 999, 100ml Rs 2499.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,7 +37,7 @@ type Variant = { size: number; price: number };
 const VARIANTS: Variant[] = [
   { size: 25, price: 499 },
   { size: 50, price: 999 },
-  { size: 100, price: 1499 },
+  { size: 100, price: 2499 },
 ];
 
 const NOTES = [
