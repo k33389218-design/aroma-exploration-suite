@@ -47,10 +47,16 @@ export function SiteHeader() {
           </a>
           <button
             type="button"
-            aria-label="Cart"
-            className="text-foreground transition-opacity hover:opacity-60"
+            aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}
+            onClick={openCart}
+            className="relative text-foreground transition-opacity hover:opacity-60"
           >
             <ShoppingBag className="h-6 w-6" strokeWidth={1.5} />
+            {count > 0 ? (
+              <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center bg-foreground px-1 text-[10px] font-semibold text-background">
+                {count}
+              </span>
+            ) : null}
           </button>
         </div>
       </header>
